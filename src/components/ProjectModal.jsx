@@ -2,14 +2,18 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function ProjectModal({ project, onClose }) {
-    useEffect(() => {
-      const esc = (e) => {
-        if (e.key === "Escape") onClose();
-      };
 
-      window.addEventListener("keydown", esc);
-      return () => window.removeEventListener("keydown", esc);
-    }, [onClose]);
+  useEffect(() => {
+    if (!project) return;
+
+    const esc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, [onClose, project]);
+
   if (!project) return null;
 
   return (
@@ -24,6 +28,7 @@ export default function ProjectModal({ project, onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="bg-[#0b1220] max-w-3xl w-full rounded-2xl overflow-hidden border border-white/10"
       >
+
         {/* IMAGE */}
         <div className="h-56">
           <img

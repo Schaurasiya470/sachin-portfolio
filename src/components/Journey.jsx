@@ -19,7 +19,7 @@ export default function Journey() {
   const next = () =>
     setIndex((prev) => (prev + 1) % data.length);
 
-  // ✅ AUTO SLIDE
+  // ✅ AUTO SLIDE (FIXED)
   useEffect(() => {
     if (pause) return;
 
