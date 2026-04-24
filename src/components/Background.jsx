@@ -1,12 +1,46 @@
 export default function Background() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Gradient glow */}
-      <div className="absolute w-[600px] h-[600px] bg-purple-600/30 blur-[120px] top-[-100px] left-[-100px]" />
-      <div className="absolute w-[500px] h-[500px] bg-pink-600/30 blur-[120px] bottom-[-100px] right-[-100px]" />
+      {/* Deep base gradient */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.12) 0%, transparent 70%)'
+      }} />
 
-      {/* Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Cyan orb top-left */}
+      <div className="orb-1" style={{
+        position: 'absolute', width: 700, height: 700,
+        top: -200, left: -200,
+        background: 'radial-gradient(circle, rgba(0,245,212,0.07) 0%, transparent 70%)',
+        borderRadius: '50%'
+      }} />
+
+      {/* Violet orb center-right */}
+      <div className="orb-2" style={{
+        position: 'absolute', width: 600, height: 600,
+        top: '20%', right: -150,
+        background: 'radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%)',
+        borderRadius: '50%'
+      }} />
+
+      {/* Pink orb bottom */}
+      <div className="orb-3" style={{
+        position: 'absolute', width: 500, height: 500,
+        bottom: -100, left: '30%',
+        background: 'radial-gradient(circle, rgba(244,114,182,0.06) 0%, transparent 70%)',
+        borderRadius: '50%'
+      }} />
+
+      {/* Mesh grid */}
+      <div className="mesh-grid" style={{ position: 'absolute', inset: 0 }} />
+
+      {/* Corner accent */}
+      <svg style={{ position: 'absolute', top: 0, right: 0, width: 400, height: 400, opacity: 0.4 }}
+           viewBox="0 0 400 400">
+        <line x1="400" y1="0" x2="0" y2="400" stroke="rgba(0,245,212,0.1)" strokeWidth="1"/>
+        <line x1="400" y1="0" x2="100" y2="400" stroke="rgba(0,245,212,0.06)" strokeWidth="1"/>
+        <line x1="400" y1="100" x2="0" y2="400" stroke="rgba(0,245,212,0.04)" strokeWidth="1"/>
+      </svg>
     </div>
   );
 }
