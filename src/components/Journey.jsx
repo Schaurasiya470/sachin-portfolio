@@ -24,11 +24,11 @@ export default function Journey() {
     if (pause) return;
 
     const interval = setInterval(() => {
-      next();
+      setIndex((prev) => (prev + 1) % data.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [pause]);
+  }, [pause, data.length]);
 
   return (
     <section

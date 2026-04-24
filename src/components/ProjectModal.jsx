@@ -3,10 +3,13 @@ import { motion } from "framer-motion";
 
 export default function ProjectModal({ project, onClose }) {
     useEffect(() => {
-  const esc = (e) => e.key === "Escape" && onClose();
-  window.addEventListener("keydown", esc);
-  return () => window.removeEventListener("keydown", esc);
-}, []);
+      const esc = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+
+      window.addEventListener("keydown", esc);
+      return () => window.removeEventListener("keydown", esc);
+    }, [onClose]);
   if (!project) return null;
 
   return (
