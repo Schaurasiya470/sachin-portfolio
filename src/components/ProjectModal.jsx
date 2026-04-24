@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function ProjectModal({ project, onClose }) {
-
   useEffect(() => {
     if (!project) return;
 
@@ -12,7 +11,7 @@ export default function ProjectModal({ project, onClose }) {
 
     window.addEventListener("keydown", esc);
     return () => window.removeEventListener("keydown", esc);
-  }, [onClose, project]);
+  }, [onClose, project]); // ✅ Included onClose
 
   if (!project) return null;
 
@@ -28,7 +27,6 @@ export default function ProjectModal({ project, onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="bg-[#0b1220] max-w-3xl w-full rounded-2xl overflow-hidden border border-white/10"
       >
-
         {/* IMAGE */}
         <div className="h-56">
           <img
@@ -40,16 +38,9 @@ export default function ProjectModal({ project, onClose }) {
 
         {/* CONTENT */}
         <div className="p-6">
-
           <h2 className="text-2xl font-bold">{project.title}</h2>
-
-          <p className="text-green-400 text-sm mt-1">
-            {project.category}
-          </p>
-
-          <p className="text-gray-400 mt-4 leading-relaxed">
-            {project.desc}
-          </p>
+          <p className="text-green-400 text-sm mt-1">{project.category}</p>
+          <p className="text-gray-400 mt-4 leading-relaxed">{project.desc}</p>
 
           {/* TAGS */}
           <div className="flex flex-wrap gap-2 mt-4">
@@ -70,7 +61,6 @@ export default function ProjectModal({ project, onClose }) {
             >
               Live Demo
             </a>
-
             <a
               href={project.github || "#"}
               target="_blank"
@@ -80,7 +70,6 @@ export default function ProjectModal({ project, onClose }) {
               GitHub
             </a>
           </div>
-
         </div>
       </motion.div>
     </div>

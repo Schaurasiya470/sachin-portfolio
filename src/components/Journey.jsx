@@ -19,16 +19,16 @@ export default function Journey() {
   const next = () =>
     setIndex((prev) => (prev + 1) % data.length);
 
-  // ✅ AUTO SLIDE (FIXED)
   useEffect(() => {
     if (pause) return;
 
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % data.length);
+      // ✅ Use functional update to avoid 'next' dependency
+      setIndex((current) => (current + 1) % data.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [pause, data.length]);
+  }, [pause, data.length]); // ✅ Corrected dependencies
 
   return (
     <section
@@ -37,12 +37,9 @@ export default function Journey() {
       onMouseEnter={() => setPause(true)}
       onMouseLeave={() => setPause(false)}
     >
-      <h2 className="text-4xl font-bold text-center mb-16">
-        Life Journey
-      </h2>
+      <h2 className="text-4xl font-bold text-center mb-16">Life Journey</h2>
 
       <div className="relative flex justify-center items-center">
-
         {/* LEFT BUTTON */}
         <button
           onClick={prev}
@@ -61,7 +58,6 @@ export default function Journey() {
 
         {/* CAROUSEL */}
         <div className="relative w-full max-w-5xl h-[260px] flex items-center justify-center">
-
           {data.map((item, i) => {
             const position = (i - index + data.length) % data.length;
 
@@ -96,16 +92,11 @@ export default function Journey() {
                 transition={{ duration: 0.5 }}
                 className={`absolute w-[280px] md:w-[380px] p-8 text-center glass ${blur} ${z}`}
               >
-                <h3 className="text-3xl font-bold neon-text">
-                  {item.year}
-                </h3>
-                <p className="text-gray-400 mt-4">
-                  {item.text}
-                </p>
+                <h3 className="text-3xl font-bold neon-text">{item.year}</h3>
+                <p className="text-gray-400 mt-4">{item.text}</p>
               </motion.div>
             );
           })}
-
         </div>
       </div>
     </section>
