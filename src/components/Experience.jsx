@@ -1,120 +1,83 @@
 import { motion } from 'framer-motion';
 
-const experiences = [
+const exp = [
   {
-    role: 'Software Engineer',
-    company: 'Dayal InfoSystems',
-    type: 'Onsite · Meerut, India',
-    period: 'Jul 2024 – Present',
-    current: true,
-    color: '#00f5d4',
-    bullets: [
-      'Developed core features for TimeSathi, a PHP-based Project Management System used by 100+ users to track 5,000+ tasks weekly, project deadlines, and performance metrics.',
-      'Engineered a modular API Integration Engine handling 1,000+ API requests/day, enabling seamless data exchange between 5+ third-party platforms using Yii2 MVC.',
-      'Enhanced and maintained 5+ ERP modules — Sales, Purchase, HRMS, Inventory, Accounts — improving process efficiency by 30%.',
-      'Built and optimized GraphQL APIs using PHP (Webonyx + Guzzle HTTP Client) reducing response latency by 25%.',
-    ]
+    role:'Software Engineer', company:'Dayal InfoSystems',
+    type:'Onsite · Meerut, India', period:'Jul 2024 – Present',
+    current:true, color:'#00f5d4',
+    bullets:[
+      'partnerPORTAL: Architected GraphQL APIs and React dashboards serving 5,000+ customers; integrated QR-based payments and self-service ticketing, reducing manual support overhead.',
+      'License & Subscription Management: Engineered a multi-tenant feature control system with timestamp-driven change propagation (Add/Modify/Delete) across distributed databases; built batch migration APIs to streamline subscription transitions at scale.',
+      'TimeSathi: Designed and shipped a Jira-like ERP module from scratch — now used by 100+ users for daily task tracking, appraisals, and delivery management with a full GraphQL API layer.',
+      'Stock Adjustment & Payment Tagging: Implemented real-time inventory correction workflows and a structured payment tagging system, boosting financial reconciliation accuracy across ERP.',
+    ],
   },
   {
-    role: 'Technical Content Writer',
-    company: 'GeeksforGeeks',
-    type: 'Remote · Freelance',
-    period: 'Apr 2024 – Present',
-    current: true,
-    color: '#a78bfa',
-    bullets: [
-      'Authored 10+ technical articles covering MERN stack, REST APIs, Tailwind CSS, modern frameworks, and web development concepts.',
-      'Developed beginner-to-advanced tutorials with practical use cases to support hands-on learning and bridge conceptual gaps.',
+    role:'Technical Content Writer', company:'GeeksforGeeks',
+    type:'Remote · Freelance', period:'Apr 2024 – Oct 2024',
+    current:false, color:'#a78bfa',
+    bullets:[
+      'Authored 10+ in-depth technical articles on MERN stack, REST APIs, Tailwind CSS, and modern frameworks — reaching thousands of developers on the platform.',
+      'Crafted beginner-to-advanced tutorials with real-world use cases, bridging conceptual gaps and accelerating practical learning.',
     ],
-    link: 'https://www.geeksforgeeks.org/',
+    link:'https://www.geeksforgeeks.org/',
   },
 ];
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ padding: '100px 48px', background: 'rgba(13,19,33,0.4)' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="experience" className="section-pad" style={{ background:'rgba(13,19,33,0.45)' }}>
+      <div style={{ maxWidth:1200, margin:'0 auto' }}>
 
-        {/* Header */}
-        <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-          viewport={{ once:true }} style={{ marginBottom: 60 }}>
-          <p className="section-number" style={{ marginBottom: 8 }}>05</p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,4vw,48px)',
-                       fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
-            Experience
-          </h2>
-          <div style={{ width: 60, height: 3, background: 'linear-gradient(90deg, var(--cyan), transparent)',
-                         borderRadius: 2, marginTop: 12 }} />
+        <motion.div initial={{ opacity:0, y:26 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} style={{ marginBottom:48 }}>
+          {/* <p className="section-number" style={{ marginBottom:6 }}>05</p> */}
+          <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(26px,4vw,46px)', fontWeight:800, color:'#fff', letterSpacing:'-.02em' }}>Experience</h2>
+          <div style={{ width:56, height:3, background:'linear-gradient(90deg,var(--cyan),transparent)', borderRadius:2, marginTop:10 }} />
         </motion.div>
 
-        {/* Timeline */}
-        <div style={{ position: 'relative' }}>
-          {/* Vertical line */}
-          <div style={{ position: 'absolute', left: 20, top: 10, bottom: 10,
-                         width: 1, background: 'var(--border)' }} />
+        <div style={{ position:'relative' }}>
+          <div style={{ position:'absolute', left:4, top:8, bottom:8, width:1, background:'var(--border)' }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            {experiences.map((exp, i) => (
-              <motion.div key={i} initial={{ opacity:0, x:-30 }} whileInView={{ opacity:1, x:0 }}
-                viewport={{ once:true }} transition={{ delay: i * 0.15 }}
-                style={{ display: 'flex', gap: 32 }}>
+          <div style={{ display:'flex', flexDirection:'column', gap:32 }}>
+            {exp.map((e,i) => (
+              <motion.div key={i} initial={{ opacity:0, x:-24 }} whileInView={{ opacity:1, x:0 }}
+                viewport={{ once:true }} transition={{ delay:i*.12 }}
+                style={{ display:'flex', gap:24 }}>
 
-                {/* Dot */}
-                <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 4 }}>
-                  <div style={{
-                    width: 10, height: 10, borderRadius: '50%',
-                    background: exp.color,
-                    boxShadow: `0 0 12px ${exp.color}80`,
-                    zIndex: 1, marginLeft: -4,
-                  }} />
+                {/* dot */}
+                <div style={{ flexShrink:0, paddingTop:6, marginLeft:-0.5 }}>
+                  <div className="tdot" style={{ background:e.color, boxShadow:`0 0 10px ${e.color}66` }} />
                 </div>
 
-                {/* Content */}
-                <div className="card" style={{ flex: 1, padding: '28px 32px' }}>
-                  {/* Top bar */}
-                  <div style={{ height: 2, background: `linear-gradient(90deg, ${exp.color}, transparent)`,
-                                 borderRadius: 2, marginBottom: 20, width: 60 }} />
+                {/* card */}
+                <div className="card" style={{ flex:1, padding:'clamp(18px,4vw,28px) clamp(18px,4vw,28px)' }}>
+                  <div style={{ height:2, background:`linear-gradient(90deg,${e.color},transparent)`, borderRadius:2, marginBottom:18, width:52 }} />
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between',
-                                 alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
+                  <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:10, marginBottom:14 }}>
                     <div>
-                      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800,
-                                    color: '#fff', marginBottom: 4 }}>{exp.role}</h3>
-                      <p style={{ fontSize: 14, color: exp.color, fontWeight: 500, marginBottom: 2 }}>
-                        {exp.company}
-                      </p>
-                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>
-                        {exp.type}
-                      </p>
+                      <h3 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(16px,3vw,19px)', fontWeight:800, color:'#fff', marginBottom:3 }}>{e.role}</h3>
+                      <p style={{ fontSize:13, color:e.color, fontWeight:500, marginBottom:2 }}>{e.company}</p>
+                      <p style={{ fontFamily:'var(--font-mono)', fontSize:10, color:'var(--text-muted)' }}>{e.type}</p>
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <span style={{
-                        fontFamily: 'var(--font-mono)', fontSize: 11,
-                        padding: '4px 12px', borderRadius: 6,
-                        background: exp.current ? `${exp.color}12` : 'var(--surface-3)',
-                        border: `1px solid ${exp.current ? exp.color + '30' : 'var(--border)'}`,
-                        color: exp.current ? exp.color : 'var(--text-muted)',
-                      }}>
-                        {exp.period}
+                    <div>
+                      <span style={{ fontFamily:'var(--font-mono)', fontSize:10, padding:'4px 11px', borderRadius:6,
+                        background:`${e.color}10`, border:`1px solid ${e.color}28`, color:e.color }}>
+                        {e.period}
                       </span>
-                      {exp.current && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 5,
-                                       justifyContent: 'flex-end', marginTop: 8 }}>
-                          <div style={{ width: 6, height: 6, borderRadius: '50%',
-                                         background: '#00f5d4', animation: 'blink 2s ease infinite' }} />
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10,
-                                          color: 'var(--cyan)' }}>current</span>
+                      {e.current && (
+                        <div style={{ display:'flex', alignItems:'center', gap:5, justifyContent:'flex-end', marginTop:7 }}>
+                          <div style={{ width:5, height:5, borderRadius:'50%', background:'#00f5d4', animation:'blink 2s ease infinite' }} />
+                          <span style={{ fontFamily:'var(--font-mono)', fontSize:9, color:'var(--cyan)' }}>current</span>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  {/* Bullets */}
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {exp.bullets.map((b, j) => (
-                      <li key={j} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                        <span style={{ color: exp.color, flexShrink: 0, marginTop: 4, fontSize: 12 }}>▸</span>
-                        <p style={{ fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.7 }}>{b}</p>
+                  <ul style={{ listStyle:'none', display:'flex', flexDirection:'column', gap:10 }}>
+                    {e.bullets.map((b,j) => (
+                      <li key={j} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+                        <span style={{ color:e.color, flexShrink:0, marginTop:4, fontSize:11 }}>▸</span>
+                        <p style={{ fontSize:'clamp(12px,2vw,13px)', color:'var(--text-muted)', lineHeight:1.75 }}>{b}</p>
                       </li>
                     ))}
                   </ul>

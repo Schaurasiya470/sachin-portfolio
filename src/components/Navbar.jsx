@@ -1,90 +1,108 @@
 import { useState, useEffect } from 'react';
 
 const links = [
-  { href: '#home',       label: 'Home'       },
-  { href: '#about',      label: 'About'      },
-  { href: '#skills',     label: 'Skills'     },
-  { href: '#projects',   label: 'Projects'   },
-  { href: '#experience', label: 'Experience' },
-  { href: '#journey',    label: 'Journey'    },
-  { href: '#contact',    label: 'Contact'    },
+  ['#home','Home'],['#about','About'],['#skills','Skills'],
+  ['#projects','Projects'],['#experience','Experience'],
+  ['#journey','Journey'],['#contact','Contact'],
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
+  const [open, setOpen]           = useState(false);
+  const [isMobile, setIsMobile]   = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    // scroll
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // breakpoint
+    const mq = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mq.matches);
+    const onMq = (e) => { setIsMobile(e.matches); if (!e.matches) setOpen(false); };
+    mq.addEventListener('change', onMq);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      mq.removeEventListener('change', onMq);
+    };
   }, []);
 
   return (
     <nav style={{
       position: 'fixed', top: 0, width: '100%', zIndex: 9000,
-      padding: '0 32px',
-      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
-      background: scrolled ? 'rgba(8,12,20,0.85)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px)' : 'none',
-      transition: 'all 0.3s ease',
+      height: 60, padding: '0 clamp(18px,5vw,36px)',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      height: 64,
+      borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+      background: scrolled ? 'rgba(8,12,20,0.92)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(18px)' : 'none',
+      transition: 'all .3s ease',
     }}>
+
       {/* Logo */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{
-          width: 34, height: 34, borderRadius: 8,
-          background: 'linear-gradient(135deg, #00f5d4, #7c3aed)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 13, color: '#000',
-        }}>SC</div>
-        <span style={{
-          fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: '#fff',
-          letterSpacing: '0.05em'
-        }}>Sachin</span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--cyan)', opacity: 0.6 }}>
-          .dev
+      <a href="#home" style={{ display:'flex', alignItems:'center', gap:8, textDecoration:'none', flexShrink:0 }}>
+        <div style={{ width:32, height:32, borderRadius:8, background:'linear-gradient(135deg,#00f5d4,#7c3aed)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'var(--font-display)', fontWeight:800, fontSize:12, color:'#000' }}>SC</div>
+        <span style={{ fontFamily:'var(--font-display)', fontWeight:700, fontSize:14, color:'#fff' }}>
+          Sachin<span style={{ color:'var(--cyan)', fontFamily:'var(--font-mono)', fontSize:10 }}>.dev</span>
         </span>
-      </div>
-
-      {/* Desktop links */}
-      <div style={{ display: 'flex', gap: 28 }} className="hidden md:flex">
-        {links.map(l => (
-          <a key={l.href} href={l.href} className="nav-link"
-             style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em' }}>
-            {l.label}
-          </a>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <a href="mailto:schaurasiya470@gmail.com"
-         className="hidden md:block btn-primary"
-         style={{ padding: '8px 20px', fontSize: 12 }}>
-        Hire Me ↗
       </a>
 
-      {/* Mobile hamburger */}
-      <button onClick={() => setOpen(o => !o)}
-              style={{ display: 'none', background: 'none', border: 'none', color: '#fff', fontSize: 22, cursor: 'pointer' }}
-              className="md:hidden">
-        {open ? '✕' : '☰'}
-      </button>
+      {/* Desktop: nav links + hire button */}
+      {!isMobile && (
+        <>
+          <div style={{ display:'flex', gap:24 }}>
+            {links.map(([href, label]) => (
+              <a key={href} href={href} className="nav-link">{label}</a>
+            ))}
+          </div>
+          <a href="mailto:schaurasiya470@gmail.com" className="btn-primary"
+             style={{ padding:'7px 18px', fontSize:11, textDecoration:'none' }}>
+            Hire Me ↗
+          </a>
+        </>
+      )}
 
-      {/* Mobile menu */}
-      {open && (
+      {/* Mobile: hamburger only */}
+      {isMobile && (
+        <button
+          onClick={() => setOpen(o => !o)}
+          style={{ background:'none', border:'1px solid var(--border)', borderRadius:8,
+                   color:'#fff', fontSize:18, cursor:'pointer', lineHeight:1,
+                   width:36, height:36, display:'flex', alignItems:'center', justifyContent:'center' }}
+          aria-label="Toggle menu"
+        >
+          {open ? '✕' : '☰'}
+        </button>
+      )}
+
+      {/* Mobile drawer */}
+      {isMobile && open && (
         <div style={{
-          position: 'absolute', top: 64, left: 0, right: 0,
-          background: 'rgba(8,12,20,0.97)', borderBottom: '1px solid rgba(255,255,255,0.06)',
-          padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 20
+          position:'absolute', top:60, left:0, right:0,
+          background:'rgba(8,12,20,0.98)',
+          borderBottom:'1px solid var(--border)',
+          padding:'24px clamp(18px,5vw,36px)',
+          display:'flex', flexDirection:'column', gap:20,
+          boxShadow:'0 16px 40px rgba(0,0,0,0.5)',
         }}>
-          {links.map(l => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="nav-link"
-               style={{ fontSize: 13 }}>
-              {l.label}
+          {links.map(([href, label]) => (
+            <a key={href} href={href}
+               onClick={() => setOpen(false)}
+               style={{ fontFamily:'var(--font-mono)', fontSize:14, color:'var(--text-muted)',
+                         textDecoration:'none', letterSpacing:'.06em',
+                         padding:'6px 0', borderBottom:'1px solid var(--border)',
+                         transition:'color .2s' }}
+               onMouseEnter={e => e.currentTarget.style.color = 'var(--cyan)'}
+               onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+            >
+              {label}
             </a>
           ))}
+          <a href="mailto:schaurasiya470@gmail.com" className="btn-primary"
+             style={{ textAlign:'center', marginTop:4, textDecoration:'none' }}
+             onClick={() => setOpen(false)}>
+            Hire Me ↗
+          </a>
         </div>
       )}
     </nav>
