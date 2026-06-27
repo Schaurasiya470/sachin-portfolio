@@ -63,7 +63,7 @@ export default function Hero() {
             {/* Resume download button */}
             <a
               href="/resume.pdf"
-              download="Sachin_Chaurasiya_Resume.pdf"
+              download="sachin_resume.pdf"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 7,
                 background: 'transparent',

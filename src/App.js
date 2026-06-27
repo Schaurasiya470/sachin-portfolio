@@ -21,7 +21,7 @@ function App() {
       <Skills />
       <Projects />
       <Experience />
-      <GithubProjects />
+      {/* <GithubProjects /> */}
       <Journey />
       <Contact />
     </>
